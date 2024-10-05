@@ -30,8 +30,8 @@ export PATH="$HOME/.local/bin:$PATH"
 1. **Clone the repository** (if you haven't already):
 
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/jonra1993/mock-social-api.git
+   cd mock-social-api
    ```
 
 2. **Install dependencies**:
