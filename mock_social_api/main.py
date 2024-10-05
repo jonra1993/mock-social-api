@@ -13,7 +13,7 @@ class TimeFrame(str, Enum):
 
 
 @app.get("/")
-def read_root() -> dict[str, str]:
+def read_root() -> str:
     """
     Root endpoint to verify that the API is up.
     
@@ -22,7 +22,7 @@ def read_root() -> dict[str, str]:
     status : str
         A string indicating the API status.
     """
-    return {"status": "active"}
+    return "Active"
 
 
 @app.get("/check-story")
