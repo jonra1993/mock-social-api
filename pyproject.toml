@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "mock-social-api"
+version = "0.1.0"
+description = ""
+authors = ["jonra1993 <jonathan.vargas1104@gmailcom>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = {extras = ["standard"], version = "^0.115.0"}
+pytz = "^2024.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
