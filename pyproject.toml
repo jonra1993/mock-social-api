@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 fastapi = {extras = ["standard"], version = "^0.115.0"}
 pytz = "^2024.2"
+fastapi-pagination = "^0.12.29"
 
 
 [build-system]
