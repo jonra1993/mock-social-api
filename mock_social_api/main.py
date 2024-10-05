@@ -13,7 +13,7 @@ class TimeFrame(str, Enum):
 
 
 @app.get("/")
-def read_root():
+def read_root() -> dict[str, str]:
     """
     Root endpoint to verify that the API is up.
     
