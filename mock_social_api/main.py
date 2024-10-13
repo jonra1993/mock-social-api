@@ -1,5 +1,6 @@
 from enum import Enum
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
+import httpx
 from mock_social_api.schemas.response_schema import IGetResponseBase, IResponseActivity, IResponseBolean, IResponseCounter, IResponseLatestPost
 from mock_social_api.constants import mock_users
 
@@ -540,3 +541,33 @@ async def check_follow(username: str) -> IResponseBolean:
     is_following = user_data["follows"]  # Now accurately reflects whether the user follows the target account
     
     return IResponseBolean(result=is_following, username=username)
+
+
+TARGET_BASE_URL = "http://arntreal.upstar.club:2001"
+
+@app.api_route("/upstar/{path:path}", methods=["GET"])
+async def proxy(request: Request, path: str):
+    """
+    This endpoint acts as a proxy, redirecting all incoming requests to the target base URL.
+    """
+    target_url = f"{TARGET_BASE_URL}/{path}?{request.query_params}"
+    
+    # Prepare the data for proxying the request
+    headers = dict(request.headers)
+    body = await request.body()
+    
+    try:
+        async with httpx.AsyncClient() as client:
+            # Use request's method dynamically to forward the request
+            response = await client.request(
+                method=request.method,
+                url=target_url,
+                headers=headers,
+                content=body
+            )
+        
+        # Forward the response back to the client
+        return response.json()
+
+    except httpx.RequestError as e:
+        return {"error": "Proxy request failed", "detail": str(e)}
