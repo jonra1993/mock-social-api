@@ -1,5 +1,5 @@
 from enum import Enum
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, JSONResponse
 import httpx
 from mock_social_api.schemas.response_schema import IGetResponseBase, IResponseActivity, IResponseBolean, IResponseCounter, IResponseLatestPost
 from mock_social_api.constants import mock_users
