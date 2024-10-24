@@ -1,5 +1,5 @@
 from enum import Enum
-from fastapi import FastAPI, HTTPException, Request, JSONResponse
+from fastapi import FastAPI, HTTPException, Request
 import httpx
 from mock_social_api.schemas.response_schema import IGetResponseBase, IResponseActivity, IResponseBolean, IResponseCounter, IResponseLatestPost
 from mock_social_api.constants import mock_users
@@ -567,7 +567,7 @@ async def proxy(request: Request, path: str):
             )
         
         # Forward the response back to the client
-        return JSONResponse(content=response.json(), status_code=response.status_code)
+        return response.json()
 
     except httpx.RequestError as e:
-        return JSONResponse({"error": "Proxy request failed", "detail": str(e)}, status_code=500)
+        return {"error": "Proxy request failed", "detail": str(e)}
