@@ -545,12 +545,6 @@ async def check_follow(username: str) -> IResponseBolean:
 
 TARGET_BASE_URL = "http://arntreal.upstar.club:2001"
 
-import httpx
-from fastapi import Request
-from fastapi.responses import JSONResponse
-
-TARGET_BASE_URL = "https://example.com"
-
 @app.api_route("/upstar/{path:path}", methods=["GET"])
 async def proxy(request: Request, path: str):
     """
