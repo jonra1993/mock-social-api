@@ -545,6 +545,12 @@ async def check_follow(username: str) -> IResponseBolean:
 
 TARGET_BASE_URL = "http://arntreal.upstar.club:2001"
 
+import httpx
+from fastapi import Request
+from fastapi.responses import JSONResponse
+
+TARGET_BASE_URL = "https://example.com"
+
 @app.api_route("/upstar/{path:path}", methods=["GET"])
 async def proxy(request: Request, path: str):
     """
@@ -557,7 +563,7 @@ async def proxy(request: Request, path: str):
     body = await request.body()
     
     try:
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=60.0) as client:  # Set timeout to 60 seconds
             # Use request's method dynamically to forward the request
             response = await client.request(
                 method=request.method,
@@ -567,7 +573,7 @@ async def proxy(request: Request, path: str):
             )
         
         # Forward the response back to the client
-        return response.json()
+        return JSONResponse(content=response.json(), status_code=response.status_code)
 
     except httpx.RequestError as e:
-        return {"error": "Proxy request failed", "detail": str(e)}
+        return JSONResponse({"error": "Proxy request failed", "detail": str(e)}, status_code=500)
