@@ -115,3 +115,10 @@ class IResponseActivity(BaseModel):
     posts_with_hashtag: int
     total_likes: int
     username: str
+
+class ITiktokResponseActivity(BaseModel):
+    followers: int
+    posts_with_hashtag: int
+    total_likes: int
+    username: str
+
